@@ -8,7 +8,6 @@ import json
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
-from django.http import QueryDict
 
 @csrf_exempt
 def getAllNotes(request):
