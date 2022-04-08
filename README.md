@@ -7,8 +7,8 @@ This is an app made for note-taking. It has basic features like adding updating 
 Clone the app
 
 ```bash
-  git clone https://github.com/joel122002/Notes-django.git
-  cd Notes/backend
+git clone https://github.com/joel122002/Notes-django.git
+cd Notes-django/backend
 ```
 
 [Install django](https://docs.djangoproject.com/en/4.0/topics/install/#s-installing-an-official-release-with-pip) with pip
