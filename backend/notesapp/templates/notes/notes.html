@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'notes/Notes/mobile.css' %}" media="screen and (max-width: 767px)" rel="stylesheet">
+    <link href="{% static 'notes/Notes/desktop.css' %}" media="screen and (min-width: 768px)" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <title>Notes</title>
+</head>
+
+<body>
+    <section class="header-section">
+        <h1 class="header-notes">Notes</h1>
+    </section>
+    <section class="header-section-fixed">
+        <h1 class="header-notes-fixed">Notes</h1>
+    </section>
+    <section class="search-section">
+        <input type="text" class="search-input" placeholder="Search">
+    </section>
+    <section class="pinned-notes">
+        <p id="pinned-label" class="notes-header-notes">Pinned</p>
+        <div class="note-holder-notes">
+            <div id="pinned-notes-1" class="note-holder-notes">
+                <!-- Pinned notes go here column 1 -->
+            </div>
+            <div id="pinned-notes-2" class="note-holder-notes">
+                <!-- Pinned notes go here column 2 -->
+            </div>
+        </div>
+    </section>
+    <section class="other-notes">
+        <p id="other-label" class="notes-header-notes">Other</p>
+        <div class="note-holder-notes">
+            <div id="other-notes-1" class="note-holder-notes">
+                <!-- Other notes go here column 1 -->
+            </div>
+            <div id="other-notes-2" class="note-holder-notes">
+                <!-- Other notes go here column 2 -->
+            </div>
+        </div>
+    </section>
+    <div id="add-note-dialog-notes" class="card-containter-notes">
+        <div id="card-dialog" class="card-dialog-wrapper">
+            <div class="fab-save-pin-wrapper">
+                <button id="fab-close-note" class="fab-notes close">
+                    <svg viewBox="0 0 449.998 449.998" height="5vw">
+                        <g>
+                            <g>
+                                <polygon style="fill:#010002;"
+                                    points="449.974,34.855 415.191,0 225.007,190.184 34.839,0 0.024,34.839 190.192,224.999 0.024,415.159 34.839,449.998 225.007,259.797 415.191,449.998 449.974,415.143 259.83,224.999" />
+                            </g>
+                        </g>
+                    </svg>
+
+                </button>
+                <button id="fab-save-note" class="fab-notes save">
+                    <svg height="5vw" viewBox="0 0 8 6.1">
+                        <path d="M2.54,4.81.65,2.92,0,3.56,2.54,6.1,8,.64,7.36,0Z" />
+                    </svg>
+                </button>
+                <button id="fab-pin-note" class="fab-notes pin">
+                </button>
+            </div>
+            <div class="card-notes">
+                <div class="new-note-wrapper-notes">
+                    <input id="note-title-notes" class="title-input-notes" type="text" maxlength="20"
+                        placeholder="Title">
+                    <div id="note-body-placeholder-notes" class="note-textarea-placeholder-notes">Note</div>
+                    <div id="note-body-notes" contenteditable="true" class="note-textarea-notes"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+<!--    delete-note-confirmation-dialog-notes to confirmation-dialog-notes-->
+    <!--    delete-dialog to confirmation-dialog-->
+<!--    delete-dialog-header to confirmation-dialog-header-->
+<!--    delete-dialog-body to confirmation-dialog-body-->
+<!--    delete-dialog-button-yes to confirmation-dialog-button-yes -->
+<!--    delete-dialog-button-no to confirmation-dialog-button-no-->
+    <div id="confirmation-dialog-notes" class="card-containter-notes">
+        <div id="confirmation-dialog" class="card-dialog-wrapper">
+            <div class="card-notes">
+                <h3 class="confirmation-dialog-header">Delete</h3>
+                <p class="confirmation-dialog-body">Are you sure you want to delete these notes</p>
+                <button id="confirmation-dialog-button-yes" class="confirmation-dialog-button-yes">Yes</button>
+                <button id="confirmation-dialog-button-no" class="confirmation-dialog-button-no">No</button>
+            </div>
+        </div>
+    </div>
+    <div class="fab-wrapper">
+        <button id="fab-logout-user" class="fab-logout noselect">
+            <svg height = "6vw" viewBox="0 0 3.16667 4">
+                <path fill="var(--primary-color)"
+                      d="M2.08333,4A1.28147,1.28147,0,0,1,1.171,3.62217L.09333,2.5445A.319.319,0,0,1,.31833,2a.50237.50237,0,0,1,.2235.05267L1,2.28183V.33333a.33334.33334,0,0,1,.66667,0V.87817A.33063.33063,0,0,1,1.83333.83333a.33417.33417,0,0,1,.31467.223.33337.33337,0,0,1,.5.16667.33327.33327,0,0,1,.51867.277V2.91667A1.08459,1.08459,0,0,1,2.08333,4Z" />
+            </svg>
+        </button>
+        <button id="fab-select-note" class="fab-select noselect">
+            <svg height = "6vw" viewBox="0 0 3.16667 4">
+                <path fill="var(--primary-color)"
+                    d="M2.08333,4A1.28147,1.28147,0,0,1,1.171,3.62217L.09333,2.5445A.319.319,0,0,1,.31833,2a.50237.50237,0,0,1,.2235.05267L1,2.28183V.33333a.33334.33334,0,0,1,.66667,0V.87817A.33063.33063,0,0,1,1.83333.83333a.33417.33417,0,0,1,.31467.223.33337.33337,0,0,1,.5.16667.33327.33327,0,0,1,.51867.277V2.91667A1.08459,1.08459,0,0,1,2.08333,4Z" />
+            </svg>
+        </button>
+        <button id="fab-add-note" class="fab-add noselect">
+            <svg height="5vw" viewBox="0 0 387.04 387.04">
+                <polygon fill="var(--primary-color)"
+                    points="233.05 154.02 233.05 0 154.05 0 154.05 154.04 0 154.04 0 233.01 154.05 233.01 154.05 387.04 233.05 387.04 233.05 233.01 387.04 233.01 387.04 154.02 233.05 154.02" />
+            </svg>
+        </button>
+        <button id="fab-notes" class="fab-notes noselect">
+            <svg height="5vw" id="plus-to-animate" class="fab-add-close-animation" viewBox="0 0 387.04 387.04">
+                <polygon fill="var(--primary-color)"
+                    points="233.05 154.02 233.05 0 154.05 0 154.05 154.04 0 154.04 0 233.01 154.05 233.01 154.05 387.04 233.05 387.04 233.05 233.01 387.04 233.01 387.04 154.02 233.05 154.02" />
+            </svg>
+
+        </button>
+    </div>
+    <div id="snackbar"></div>
+    <script src="{% static 'notes/config.js' %}"></script>
+    <script src="{% static 'notes/Notes/database.js' %}"></script>
+    <script src="{% static 'notes/Notes/index.js' %}"></script>
+</body>
+
+</html>

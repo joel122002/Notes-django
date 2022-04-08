@@ -1,0 +1,9 @@
+venv
+.idea
+backend/notesapp/static/notes/config.js
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media

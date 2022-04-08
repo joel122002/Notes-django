@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{% static 'notes/Login/index.css' %}" rel="stylesheet" type="text/css">
+    <title>Notes</title>
+    <script type="text/javascript" src="https://npmcdn.com/parse/dist/parse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+</head>
+
+<body>
+    <div class="form-wrapper">
+        <h1 class="login-header">Login</h1>
+        <div class="styled-input-wrapper">
+            <div class="input-wrapper">
+                <div class="form__div">
+                    <input id="login-username" type="text" class="form__input" placeholder=" " />
+                    <label for="" class="form__label">Username</label>
+                </div>
+            </div>
+        </div>
+        <div class="styled-input-wrapper below">
+            <div class="input-wrapper">
+                <div class="form__div">
+                    <input id="login-password" type="password" class="form__input" placeholder=" " />
+                    <label for="" class="form__label">Password</label>
+                </div>
+            </div>
+        </div>
+        <button id="login-btn" class="btn-login">Login</button>
+    </div>
+    <script src="{% static 'notes/config.js' %}"></script>
+    <script src="{% static 'notes/Login/index.js' %}"></script>
+</body>
+
+</html>
