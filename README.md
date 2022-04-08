@@ -14,12 +14,20 @@ cd Notes-django/backend
 [Install django](https://docs.djangoproject.com/en/4.0/topics/install/#s-installing-an-official-release-with-pip) with pip
 
 ```bash
-  python -m pip install Django
+python -m pip install Django
 ```
 
 To run the project run the following command
 ```bash
-  python manage.py runserver
+python manage.py runserver
+```
+
+To add a user run
+```bash
+python manage.py shell
+from django.contrib.auth.models import User
+user=User.objects.create_user('username', password='password')
+user.save()
 ```
 ## Environment Variables
 

@@ -115,5 +115,5 @@ def notes(request):
     if request.user.is_authenticated:
         return render(request, 'notes/notes.html')
     else:
-        response = redirect('/notes/')
+        response = redirect('/notes')
         return response
