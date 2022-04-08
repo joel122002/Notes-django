@@ -267,38 +267,40 @@ function showSnackbar(text) {
 
 function deleteSelectedNotes() {
     pinnedSelectedNotesIndices.forEach((elem) => {
-        pinnedNotes[elem].destroy().then((myObject) => {
-            pinnedNotes[elem] = undefined
-            $("#" + elem + "-pinned").remove()
-            if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0 && $("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0) {
-                $("#pinned-label").text("Notes you add appear here").css('visibility', 'visible').addClass('default-text');
-            } else if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0)
-                $("#pinned-label").css('visibility', 'hidden')
-            if ($("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0)
-                $("#other-label").css('visibility', 'hidden')
-            else
-                $("#other-label").removeAttr("style")
-        }, (error) => {
-            // The delete failed.
-            // error is a Parse.Error with an error code and message.
-        });
+        deleteNotes(pinnedNotes[elem], elem)
+        // pinnedNotes[elem].destroy().then((myObject) => {
+        //     pinnedNotes[elem] = undefined
+        //     $("#" + elem + "-pinned").remove()
+        //     if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0 && $("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0) {
+        //         $("#pinned-label").text("Notes you add appear here").css('visibility', 'visible').addClass('default-text');
+        //     } else if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0)
+        //         $("#pinned-label").css('visibility', 'hidden')
+        //     if ($("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0)
+        //         $("#other-label").css('visibility', 'hidden')
+        //     else
+        //         $("#other-label").removeAttr("style")
+        // }, (error) => {
+        //     // The delete failed.
+        //     // error is a Parse.Error with an error code and message.
+        // });
     })
     otherSelectedNotesIndices.forEach((elem) => {
-        otherNotes[elem].destroy().then((myObject) => {
-            otherNotes[elem] = undefined
-            $("#" + elem + "-other").remove()
-            if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0 && $("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0) {
-                $("#pinned-label").text("Notes you add appear here").css('visibility', 'visible').addClass('default-text');
-            } else if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0)
-                $("#pinned-label").css('visibility', 'hidden')
-            if ($("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0)
-                $("#other-label").css('visibility', 'hidden')
-            else
-                $("#other-label").removeAttr("style")
-        }, (error) => {
-            // The delete failed.
-            // error is a Parse.Error with an error code and message.
-        });
+        deleteNotes(otherNotes[elem], elem)
+        // otherNotes[elem].destroy().then((myObject) => {
+        //     otherNotes[elem] = undefined
+        //     $("#" + elem + "-other").remove()
+        //     if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0 && $("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0) {
+        //         $("#pinned-label").text("Notes you add appear here").css('visibility', 'visible').addClass('default-text');
+        //     } else if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0)
+        //         $("#pinned-label").css('visibility', 'hidden')
+        //     if ($("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0)
+        //         $("#other-label").css('visibility', 'hidden')
+        //     else
+        //         $("#other-label").removeAttr("style")
+        // }, (error) => {
+        //     // The delete failed.
+        //     // error is a Parse.Error with an error code and message.
+        // });
     })
 }
 

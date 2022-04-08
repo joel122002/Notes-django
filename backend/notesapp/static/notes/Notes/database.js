@@ -15,7 +15,24 @@ async function getData(url = '') {
     return response.json(); // parses JSON response into native JavaScript objects
 }
 
-async function postData(url = '', data = {}) {
+async function deleteData(url = '', data = {}, responseType='text') {
+    // Default options are marked with *
+    const response = await fetch(url + '?' + new URLSearchParams(data), {
+        method: 'DELETE', // *GET, POST, PUT, DELETE, etc.
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+            'Content-Type': 'application/json'
+            // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', // manual, *follow, error
+    });
+    if (responseType === 'text')
+        return response.text(); // parses JSON response into native JavaScript objects
+    else if (responseType === 'json')
+        return response.json();
+}
+
+async function postData(url = '', data = {}, responseType='text') {
     var formBody = [];
     for (var property in data) {
         var encodedKey = encodeURIComponent(property);
@@ -35,7 +52,10 @@ async function postData(url = '', data = {}) {
         },
         body: formBody
     });
-    return response.text(); // parses JSON response into native JavaScript objects
+    if (responseType === 'text')
+        return response.text(); // parses JSON response into native JavaScript objects
+    else if (responseType === 'json')
+        return response.json();
 }
 
 // Function that retrieves all the notes of the current user from the database
@@ -77,24 +97,46 @@ function getNotes() {
 
 //
 function saveNote(note) {
-    const Note = Parse.Object.extend("Notes");
-    const noteObject = new Note();
-    noteObject.set("note", note.body);
-    noteObject.set("title", note.title);
-    noteObject.set("username", Parse.User.current().get("username"));
-    noteObject.set("isPinned", note.pinned);
-    noteObject.save().then((object) => {
-        // Successful 
+    let newNote = {
+        title: note.title,
+        note: note.body,
+        isPinned: note.isPinned
+    }
+    postData('http://127.0.0.1:8000/notes/api/v1/addnote', newNote, 'json').then((data) => {
+        // Successful
+        let dimitri = data
+        console.log(dimitri)
+        let noteToInsert = {
+            id: data.id,
+            title: note.title,
+            note: note.body,
+            isPinned: note.pinned
+        }
         if (note.pinned) {
-            pinnedNotes = [object].concat(pinnedNotes)
+            pinnedNotes = [noteToInsert].concat(pinnedNotes)
         } else {
-            otherNotes = [object].concat(otherNotes)
+            otherNotes = [noteToInsert].concat(otherNotes)
         }
         noteViewUpdater()
-    }, (error) => {
-        // If error encountered
-        // Showing a snackbar to the user saying that the item was not added
-    });
+    })
+    // const Note = Parse.Object.extend("Notes");
+    // const noteObject = new Note();
+    // noteObject.set("note", note.body);
+    // noteObject.set("title", note.title);
+    // noteObject.set("username", Parse.User.current().get("username"));
+    // noteObject.set("isPinned", note.pinned);
+    // noteObject.save().then((object) => {
+    //     // Successful
+    //     if (note.pinned) {
+    //         pinnedNotes = [object].concat(pinnedNotes)
+    //     } else {
+    //         otherNotes = [object].concat(otherNotes)
+    //     }
+    //     noteViewUpdater()
+    // }, (error) => {
+    //     // If error encountered
+    //     // Showing a snackbar to the user saying that the item was not added
+    // });
 }
 
 
@@ -108,7 +150,7 @@ function updateNote(noteObject, note) {
             id: noteObject.id
         }
         postData('http://127.0.0.1:8000/notes/api/v1/updatenote', noteToUpdate).then((data) => {
-            console.log(data)
+            console.log(data.text())
             const index = pinnedNotes.indexOf(noteObject);
             pinnedNotes.splice(index, 1);
             noteToUpdate.isPinned = note.pinned
@@ -143,7 +185,7 @@ function updateNote(noteObject, note) {
             id: noteObject.id
         }
         postData('http://127.0.0.1:8000/notes/api/v1/updatenote', noteToUpdate).then((data) => {
-            console.log(data)
+            console.log(data.text())
             const index = otherNotes.indexOf(noteObject);
             otherNotes.splice(index, 1);
             noteToUpdate.isPinned = note.pinned
@@ -183,8 +225,12 @@ function updateNote(noteObject, note) {
                 const index = pinnedNotes.indexOf(noteObject);
                 pinnedNotes[index] = noteToUpdate;
                 pinnedNotes[index].username = noteObject.username
+            } else {
+                const index = otherNotes.indexOf(noteObject);
+                otherNotes[index] = noteToUpdate;
+                otherNotes[index].username = noteObject.username
             }
-            console.log(data)
+            console.log(data.text())
             noteViewUpdater()
         })
 
@@ -197,4 +243,36 @@ function updateNote(noteObject, note) {
         //     // Handle error
         // })
     }
+}
+
+function deleteNotes(note, index) {
+    let data = {
+        id: note.id
+    }
+    deleteData('http://127.0.0.1:8000/notes/api/v1/deletenote', data).then((data) => {
+        console.log(data)
+        if (note.isPinned) {
+            pinnedNotes[index] = undefined
+            $("#" + index + "-pinned").remove()
+            if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0 && $("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0) {
+                $("#pinned-label").text("Notes you add appear here").css('visibility', 'visible').addClass('default-text');
+            } else if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0)
+                $("#pinned-label").css('visibility', 'hidden')
+            if ($("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0)
+                $("#other-label").css('visibility', 'hidden')
+            else
+                $("#other-label").removeAttr("style")
+        } else {
+            otherNotes[index] = undefined
+                $("#" + index + "-other").remove()
+                if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0 && $("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0) {
+                    $("#pinned-label").text("Notes you add appear here").css('visibility', 'visible').addClass('default-text');
+                } else if ($("#pinned-notes-1").children().length == 0 && $("#pinned-notes-2").children().length == 0)
+                    $("#pinned-label").css('visibility', 'hidden')
+                if ($("#other-notes-1").children().length == 0 && $("#other-notes-2").children().length == 0)
+                    $("#other-label").css('visibility', 'hidden')
+                else
+                    $("#other-label").removeAttr("style")
+        }
+    })
 }

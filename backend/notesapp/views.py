@@ -8,6 +8,7 @@ import json
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.http import QueryDict
 
 @csrf_exempt
 def getAllNotes(request):
@@ -18,6 +19,7 @@ def getAllNotes(request):
         s = []
         for note in notes:
             data = model_to_dict(note)
+            del data['username']
             s.append(data)
         return HttpResponse(json.dumps(s))
     else:
@@ -38,10 +40,43 @@ def updateNote(request):
         print(title)
         print(note)
         print(id)
-        notes = Note.objects.filter(id=int(id)).update(isPinned=isPinned, title=title, note=note)
+        Note.objects.filter(id=int(id), username=request.user.username).update(isPinned=isPinned, title=title, note=note)
         return HttpResponse("Ok")
     else:
-        return HttpResponse("dfsfgdfg")
+        return HttpResponse("Unauthorized")
+
+@csrf_exempt
+def addNote(request):
+    if request.user.is_authenticated:
+        isPinned = request.POST.get('isPinned')
+        title = request.POST.get('title')
+        note = request.POST.get('note')
+        username = request.user.username
+        if isPinned == "true":
+            isPinned = True
+        else:
+            isPinned = False
+        print(isPinned)
+        print(title)
+        print(note)
+        print(id)
+        newNote = Note(title=title, note=note, isPinned=isPinned, username=username)
+        newNote.save()
+        objectToReturn = {'id': newNote.id}
+        print(json.dumps(objectToReturn))
+        return HttpResponse(json.dumps(objectToReturn))
+    else:
+        return HttpResponse("Unauthorized")
+
+@csrf_exempt
+def deleteNote(request):
+    if request.user.is_authenticated:
+        id = request.GET['id']
+        print(id)
+        Note.objects.filter(id=int(id), username=request.user.username).delete()
+        return HttpResponse("Ok")
+    else:
+        return HttpResponse("Unauthorized")
 
 @csrf_exempt
 def login_view(request):

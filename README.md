@@ -8,7 +8,7 @@ Clone the app
 
 ```bash
   git clone
-  cd Notes
+  cd Notes/backend
 ```
 
 [Install django](https://docs.djangoproject.com/en/4.0/topics/install/#s-installing-an-official-release-with-pip) with pip
