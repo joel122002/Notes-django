@@ -43,7 +43,7 @@ getData('/notes/api/v1/checkAuth')
     .then(data => {
         console.log(data)
         if (data === "Authenticated") {
-            //window.location.href = config.NOTES_PATH;
+            window.location.href = '/notes/';
         }
     })
 $("#login-btn").click(function () {
@@ -53,7 +53,7 @@ $("#login-btn").click(function () {
         .then(data => {
             console.log(data)
             if (data === "Authenticated") {
-               // window.location.href = config.NOTES_PATH;
+               window.location.href = '/notes/';
             }
         });
     // Create a new instance of the user class
