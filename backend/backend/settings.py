@@ -37,33 +37,18 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'corsheaders',
     'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    #'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# CSRF_COOKIE_SECURE = False
-# SESSION_COOKIE_SECURE = False
-# CSRF_COOKIE_SAMESITE = 'None'
-# SESSION_COOKIE_SAMESITE = 'None'
-#
-# CORS_ALLOWED_ORIGINS = [
-#         'http://127.0.0.1:8000',
-# ]
-#
-# CORS_ORIGIN_WHITELIST = (
-#     'http://127.0.0.1:8000',
-# )
 
 ROOT_URLCONF = 'backend.urls'
 
