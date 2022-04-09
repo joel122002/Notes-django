@@ -117,3 +117,8 @@ def notes(request):
     else:
         response = redirect('/notes')
         return response
+
+@csrf_exempt
+def home(request):
+    response = redirect('/login')
+    return response

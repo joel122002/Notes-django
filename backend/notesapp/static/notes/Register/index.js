@@ -39,7 +39,7 @@ async function getData(url = '') {
     });
     return response.text(); // parses JSON response into native JavaScript objects
 }
-getData('/notes/api/v1/checkAuth')
+getData('http://127.0.0.1:8000/notes/api/v1/checkAuth')
     .then(data => {
         console.log(data)
         if (data === "Authenticated") {
@@ -49,7 +49,8 @@ getData('/notes/api/v1/checkAuth')
 $("#login-btn").click(function () {
     let username = $("#login-username").val();
     let password = $("#login-password").val();
-    postData('/notes/api/v1/login', { username: username, password: password })
+    let passwordConfirm = $("#login-confirm-password").val();
+    postData('http://127.0.0.1:8000/notes/api/v1/login', { username: username, password: password })
         .then(data => {
             console.log(data)
             if (data === "Authenticated") {

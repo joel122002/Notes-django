@@ -1,0 +1,141 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap");
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+:root {
+    /*===== Colors =====*/
+
+    --primary-color: #1E72FF;
+    --input-color: #80868B  ;
+    --border-color: #80868B;
+    --bacground-color: #FFF;
+
+    /*===== Fuente y tipografia =====*/
+    --body-font: 'Roboto', sans-serif;
+    --normal-font-size: 1rem;
+    --small-font-size: .75rem;
+}
+
+/*===== BASE =====*/
+*, ::before, ::after {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: var(--body-font);
+    font-size: var(--normal-font-size);
+}
+
+
+.form-wrapper {
+    position: absolute;
+    width: 75vw;
+    top: 50%;
+    left: 50%;
+    text-align: center;
+    transform: translate(-50%, -50%);
+}
+
+.login-header {
+    font-size: calc(1.7 * var(--normal-font-size));
+}
+
+
+/*===== FORM =====*/
+.form__div {
+    position: relative;
+    height: 30px;
+    /*margin-bottom: 1.5rem;*/
+}
+
+.form__input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: #000;
+    width: 100%;
+    height: 100%;
+    font-size: calc(0.9 * var(--normal-font-size));
+    border: 1px solid var(--border-color);
+    border-radius: 100px;
+    outline: none;
+    padding: 1rem;
+    background: none;
+    z-index: 1;
+}
+
+.form__label {
+    position: absolute;
+    left: 0.7rem;
+    top: 55%;
+    transform: translateY(-50%);
+    padding: 0 .25rem;
+    background-color: var(--bacground-color);
+    color: var(--input-color);
+    font-size: calc(0.9 * var(--normal-font-size));
+    transition: .3s;
+}
+
+/*Input focus move up label*/
+.form__input:focus + .form__label {
+    top: -.4rem;
+    left: .6rem;
+    transform: translateY(0%);
+    color: var(--primary-color);
+    font-size: var(--small-font-size);
+    font-weight: 500;
+    z-index: 10;
+}
+
+/*Input focus sticky top label*/
+.form__input:not(:placeholder-shown).form__input:not(:focus) + .form__label {
+    top: -.5rem;
+    left: .8rem;
+    transform: translateY(0%);
+    font-size: var(--small-font-size);
+    font-weight: 500;
+    z-index: 10;
+}
+
+/*Input focus*/
+.form__input:focus {
+    border: 2px solid var(--primary-color);
+}
+
+.input-wrapper {
+    width: 100%;
+    height: 100%;
+    display: inline-block;
+}
+
+.styled-input-wrapper {
+    width: 100%;
+    display: block;
+}
+
+.styled-input-wrapper.below{
+    margin-top: 20px;
+}
+
+
+.btn-login {
+    display: inline-block;
+    margin-top: 20px;
+    background-color:var(--primary-color);
+    border: none;
+    outline: none;
+    padding: 10px 10vw;
+    color: var(--bacground-color);
+    border-radius: 100px;
+}

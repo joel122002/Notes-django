@@ -1,4 +1,4 @@
-GET_URL="http://127.0.0.1:8000/notes/api/v1/allnotes"
+GET_URL="/notes/api/v1/allnotes"
 
 // Example POST method implementation:
 async function getData(url = '') {
@@ -102,7 +102,7 @@ function saveNote(note) {
         note: note.body,
         isPinned: note.isPinned
     }
-    postData('http://127.0.0.1:8000/notes/api/v1/addnote', newNote, 'json').then((data) => {
+    postData('/notes/api/v1/addnote', newNote, 'json').then((data) => {
         // Successful
         let dimitri = data
         console.log(dimitri)
@@ -149,7 +149,7 @@ function updateNote(noteObject, note) {
             isPinned: note.pinned,
             id: noteObject.id
         }
-        postData('http://127.0.0.1:8000/notes/api/v1/updatenote', noteToUpdate).then((data) => {
+        postData('/notes/api/v1/updatenote', noteToUpdate).then((data) => {
             console.log(data.text())
             const index = pinnedNotes.indexOf(noteObject);
             pinnedNotes.splice(index, 1);
@@ -184,7 +184,7 @@ function updateNote(noteObject, note) {
             isPinned: note.pinned,
             id: noteObject.id
         }
-        postData('http://127.0.0.1:8000/notes/api/v1/updatenote', noteToUpdate).then((data) => {
+        postData('/notes/api/v1/updatenote', noteToUpdate).then((data) => {
             console.log(data.text())
             const index = otherNotes.indexOf(noteObject);
             otherNotes.splice(index, 1);
@@ -220,7 +220,7 @@ function updateNote(noteObject, note) {
             isPinned: note.pinned,
             id: noteObject.id
         }
-        postData('http://127.0.0.1:8000/notes/api/v1/updatenote', noteToUpdate).then((data) => {
+        postData('/notes/api/v1/updatenote', noteToUpdate).then((data) => {
             if (noteToUpdate.isPinned) {
                 const index = pinnedNotes.indexOf(noteObject);
                 pinnedNotes[index] = noteToUpdate;
@@ -249,7 +249,7 @@ function deleteNotes(note, index) {
     let data = {
         id: note.id
     }
-    deleteData('http://127.0.0.1:8000/notes/api/v1/deletenote', data).then((data) => {
+    deleteData('/notes/api/v1/deletenote', data).then((data) => {
         console.log(data)
         if (note.isPinned) {
             pinnedNotes[index] = undefined
