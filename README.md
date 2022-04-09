@@ -17,10 +17,16 @@ cd Notes-django/backend
 python -m pip install Django
 ```
 
+Create all necessary tables by running 
+```bash
+python manage.py migrate
+```
+
 To run the project run the following command
 ```bash
 python manage.py runserver
 ```
+
 
 To add a user run
 ```bash
